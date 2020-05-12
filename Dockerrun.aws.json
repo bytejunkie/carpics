@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "bytejunkie/carpics",
+    "Name": "bytejunkie77/carpics",
     "Update": "true"
   },
   "Ports": [

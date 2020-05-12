@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request
+#!/usr/bin/env python3
 import os
 import random
 
+from flask import Flask, render_template, request
 app = Flask(__name__)
 cars = dict()
 
@@ -21,8 +22,11 @@ cars["audi"] = [
     "https://cars-docker-images.s3.eu-west-2.amazonaws.com/audi/audi_05.jpg"
 ]
 
+
 @app.route("/")
 def index():
+    """runs the car pics in a container"""
+
     manu = request.args.get('manufacturer')
     url = random.choice(cars[manu])
     return render_template("index.html", url=url)
