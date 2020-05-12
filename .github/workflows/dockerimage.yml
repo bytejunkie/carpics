@@ -2,40 +2,38 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: AWS ECR
-      uses: kciter/aws-ecr-action@v1
-      with:
-        # The AWS access key id
-        access_key_id: 
-        # The AWS secret access key
-        secret_access_key: 
-        # AWS Account ID
-        account_id: 
-        # Name of your ECR repository
-        repo: 
-        # The AWS region
-        region: 
-        # Set this to true to create the repository if it does not already exist
-        create_repo: # optional
-        # Comma-separated string of ECR image tags
-        tags: # optional, default is latest
-        # Name of Dockerfile to use
-        dockerfile: # optional, default is Dockerfile
-        # Extra flags to pass to docker build (see docs.docker.com/engine/reference/commandline/build)
-        extra_build_args: # optional, default is 
-        # Path to Dockerfile, defaults to the working directory
-        path: # optional, default is .
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+      - name: AWS ECR
+        uses: kciter/aws-ecr-action@v1
+        with:
+          # The AWS access key id
+          access_key_id: ${{ secrets.ecr_key_id }}
+          # The AWS secret access key
+          secret_access_key: ${{ secrets.ecr_key }}
+          # AWS Account ID
+          account_id: "ecr"
+          # Name of your ECR repository
+          repo: "bytejunkie-ecr"
+          # The AWS region
+          region: "eu-west-2"
+          # Set this to true to create the repository if it does not already exist
+          create_repo: true
+          # Comma-separated string of ECR image tags
+          #tags: # optional, default is latest
+          # Name of Dockerfile to use
+          #dockerfile: # optional, default is Dockerfile
+          # Extra flags to pass to docker build (see docs.docker.com/engine/reference/commandline/build)
+          #extra_build_args: # optional, default is
+          # Path to Dockerfile, defaults to the working directory
+          #path: # optional, default is .
