@@ -22,7 +22,7 @@ jobs:
           # The AWS secret access key
           secret_access_key: ${{ secrets.ecr_key }}
           # AWS Account ID
-          account_id: "ecr"
+          account_id: ${{ secrets.ecr_account_id }}
           # Name of your ECR repository
           repo: "bytejunkie-ecr"
           # The AWS region
