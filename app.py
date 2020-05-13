@@ -22,6 +22,14 @@ cars["audi"] = [
     "https://cars-docker-images.s3.eu-west-2.amazonaws.com/audi/audi_05.jpg"
 ]
 
+cars["vw"] = [
+    "https://cars-docker-images.s3.eu-west-2.amazonaws.com/vw/vw_01.jpg",
+    "https://cars-docker-images.s3.eu-west-2.amazonaws.com/vw/vw_02.jpg",
+    "https://cars-docker-images.s3.eu-west-2.amazonaws.com/vw/vw_03.jpg",
+    "https://cars-docker-images.s3.eu-west-2.amazonaws.com/vw/vw_04.jpg",
+    "https://cars-docker-images.s3.eu-west-2.amazonaws.com/vw/vw_05.jpg"
+]
+
 
 @app.route("/")
 def index():
