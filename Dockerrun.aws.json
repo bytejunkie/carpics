@@ -1,7 +1,7 @@
 {
   "AWSEBDockerrunVersion": "1",
   "Image": {
-    "Name": "664576603111.dkr.ecr.eu-west-2.amazonaws.com/bytejunkie-ecr",
+    "Name": "bytejunkie77/carpics",
     "Update": "true"
   },
   "Ports": [
