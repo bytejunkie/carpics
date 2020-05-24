@@ -30,13 +30,18 @@ cars["vw"] = [
     "https://cars-docker-images.s3.eu-west-2.amazonaws.com/vw/vw_05.jpg"
 ]
 
+all_cars = cars["bmw"] + cars["audi"] + cars["vw"]
+
 
 @app.route("/")
 def index():
     """runs the car pics in a container"""
 
     manu = request.args.get('manufacturer')
-    url = random.choice(cars[manu])
+    if manu:
+        url = random.choice(cars[manu])
+    else:
+        url = random.choice(all_cars)
     return render_template("index.html", url=url)
 
 
