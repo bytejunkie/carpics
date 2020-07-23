@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "bytaks01cluster-1526"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "bytaks01cluster-1526"
+    spec:
+      containers:
+        - name: "bytaks01cluster-1526"
+          image: "mattshortcontainers.azurecr.io/bytaks01cluster"
+          ports:
+          - containerPort: 5000
