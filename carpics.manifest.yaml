@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: carpics
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: carpics
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: carpics
+    spec:
+      containers:
+        - name: carpics
+          image: bytejunkie77/carpics:latest
+          ports:
+            - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carpics-svc
+  labels:
+    app: carpics
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      nodePort: 30001
+  selector:
+    app: carpics
