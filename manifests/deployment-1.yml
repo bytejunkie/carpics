@@ -1,0 +1,19 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: "bytaks001-62c8"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "bytaks001-62c8"
+  template:
+    metadata:
+      labels:
+        app: "bytaks001-62c8"
+    spec:
+      containers:
+        - name: "bytaks001-62c8"
+          image: "bytconreg001.azurecr.io/bytaks001"
+          ports:
+          - containerPort: 5000
