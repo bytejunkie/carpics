@@ -34,6 +34,7 @@ spec:
   type: LoadBalancer
   ports:
     - port: 80
-      nodePort: 30001
+      nodePort: 5000
+      protocol: TCP
   selector:
     app: carpics
