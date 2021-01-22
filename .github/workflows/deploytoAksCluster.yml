@@ -7,33 +7,33 @@ jobs:
         run: |
           echo Hello there!
 
-      - uses: actions/checkout@master
+#       - uses: actions/checkout@master
 
-      - uses: microsoft/variable-substitution@v1
-        with:
-          files: "app.py"
-        env:
-          INSTRUMENTATIONKEY: ${{ secrets.INSTRUMENTATIONKEY }}
+#       - uses: microsoft/variable-substitution@v1
+#         with:
+#           files: "app.py"
+#         env:
+#           INSTRUMENTATIONKEY: ${{ secrets.INSTRUMENTATIONKEY }}
 
-      - uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#       - uses: azure/login@v1
+#         with:
+#           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Create ACR
-        id: create-acr
-        run: |
-          echo "::set-output name=acr_username::`az acr credential show -n bytconreg001 --query username | xargs`"
-          echo "::set-output name=acr_password::`az acr credential show -n bytconreg001 --query passwords[0].value | xargs`"
-          echo "::add-mask::`az acr credential show -n bytconreg001 --query passwords[0].value | xargs`"
+#       - name: Create ACR
+#         id: create-acr
+#         run: |
+#           echo "::set-output name=acr_username::`az acr credential show -n bytconreg001 --query username | xargs`"
+#           echo "::set-output name=acr_password::`az acr credential show -n bytconreg001 --query passwords[0].value | xargs`"
+#           echo "::add-mask::`az acr credential show -n bytconreg001 --query passwords[0].value | xargs`"
 
-      - uses: azure/docker-login@v1
-        with:
-          login-server: mattshortcontainers.azurecr.io
-          username: ${{ steps.create-acr.outputs.acr_username }}
-          password: ${{ steps.create-acr.outputs.acr_password }}
+#       - uses: azure/docker-login@v1
+#         with:
+#           login-server: mattshortcontainers.azurecr.io
+#           username: ${{ steps.create-acr.outputs.acr_username }}
+#           password: ${{ steps.create-acr.outputs.acr_password }}
 
-      - name: Build and push image to ACR
-        id: build-image
-        run: |
-          docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t bytconreg001.azurecr.io/carpics:${{ github.sha }}
-          docker push bytconreg001.azurecr.io/carpics:${{ github.sha }}
+#       - name: Build and push image to ACR
+#         id: build-image
+#         run: |
+#           docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t bytconreg001.azurecr.io/carpics:${{ github.sha }}
+#           docker push bytconreg001.azurecr.io/carpics:${{ github.sha }}
