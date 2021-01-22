@@ -33,31 +33,3 @@ jobs:
         run: |
           docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t bytconreg001.azurecr.io/carpics:${{ github.sha }}
           docker push bytconreg001.azurecr.io/carpics:${{ github.sha }}
-    # - uses: azure/k8s-set-context@v1
-    #   id: login
-    #   with:
-    #       kubeconfig: ${{ secrets.aks_bytaks01cluster_kubeConfig }}
-    # - name: Create namespace
-    #   run: |
-    #     namespacePresent=`kubectl get namespace | grep bytaks01cluster7f37 | wc -l`
-    #     if [ $namespacePresent -eq 0 ]
-    #     then
-    #         echo `kubectl create namespace bytaks01cluster7f37`
-    #     fi
-    # - uses: azure/k8s-create-secret@v1
-    #   with:
-    #     namespace: bytaks01cluster7f37
-    #     container-registry-url: mattshortcontainers.azurecr.io
-    #     container-registry-username: ${{ steps.create-acr.outputs.acr_username }}
-    #     container-registry-password: ${{ steps.create-acr.outputs.acr_password }}
-    #     secret-name: bytaks01clusdockerauth
-    # - uses: azure/k8s-deploy@v1
-    #   with:
-    #     namespace: bytaks01cluster7f37
-    #     manifests: |
-    #       manifests/deployment.yml
-    #       manifests/service.yml
-    #     images: |
-    #       mattshortcontainers.azurecr.io/bytaks01cluster:${{ github.sha }}
-    #     imagepullsecrets: |
-    #       bytaks01clusdockerauth
