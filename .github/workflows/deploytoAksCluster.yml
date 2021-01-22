@@ -3,11 +3,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@main
       - name: just echo a message
         run: |
           echo Hello there!
-
-      - uses: actions/checkout@main
 
 #       - uses: microsoft/variable-substitution@v1
 #         with:
