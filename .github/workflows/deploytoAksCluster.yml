@@ -5,6 +5,10 @@ jobs:
     steps:
       - uses: actions/checkout@master
 
+      - name: just echo a message
+        run: |
+          echo Hello there!
+          
       - uses: microsoft/variable-substitution@v1
         with:
           files: "app.py"
