@@ -3,12 +3,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: "main"
-      # - name: just echo a message
-      #   run: |
-      #     echo Hello there!
+#       - uses: actions/checkout@v2
+#         with:
+#           ref: "main"
+      - name: just echo a message
+        run: |
+          echo Hello there!
 #       - uses: microsoft/variable-substitution@v1
 #         with:
 #           files: "app.py"
