@@ -7,7 +7,7 @@ jobs:
         run: |
           echo Hello there!
 
-#       - uses: actions/checkout@master
+      - uses: actions/checkout@main
 
 #       - uses: microsoft/variable-substitution@v1
 #         with:
