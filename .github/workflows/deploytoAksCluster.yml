@@ -7,7 +7,7 @@ jobs:
 
       - uses: microsoft/variable-substitution@v1
         with:
-          files: "Application/*.json, Application/*.yaml, ./Application/SampleWebApplication/We*.config"
+          files: "app.py"
         env:
           INSTRUMENTATIONKEY: ${{ secrets.INSTRUMENTATIONKEY }}
 
