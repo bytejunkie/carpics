@@ -1,14 +1,14 @@
 on: [push]
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-
       - name: just echo a message
         run: |
           echo Hello there!
-          
+
+      - uses: actions/checkout@master
+
       - uses: microsoft/variable-substitution@v1
         with:
           files: "app.py"
