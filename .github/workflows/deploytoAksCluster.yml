@@ -4,11 +4,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      - name: just echo a message
-        run: |
-          echo Hello there!
-
+      # - name: just echo a message
+      #   run: |
+      #     echo Hello there!
 #       - uses: microsoft/variable-substitution@v1
 #         with:
 #           files: "app.py"
