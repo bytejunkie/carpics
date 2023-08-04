@@ -1,11 +1,8 @@
 #!/usr/bin/env python3
 import os
 import random
-import logging
 
 from flask import Flask, render_template, request
-
-from opencensus.ext.azure.log_exporter import AzureLogHandler
 
 app = Flask(__name__)
 cars = dict()
@@ -40,19 +37,12 @@ all_cars = cars["bmw"] + cars["audi"] + cars["vw"]
 @app.route("/")
 def index():
     """runs the car pics in a container"""
-    # setup the logging connection
-    logger = logging.getLogger(__name__)
-    logger.addHandler(AzureLogHandler(
-        connection_string='InstrumentationKey=${{ INSTRUMENTATIONKEY }}')
-    )
-
+    
     manu = request.args.get('manufacturer')
     if manu:
         url = random.choice(cars[manu])
     else:
         url = random.choice(all_cars)
-    properties = {'custom_dimensions': {'url-request': url}}
-    logger.warning('action', extra=properties)
     return render_template("index.html", url=url)
 
 
