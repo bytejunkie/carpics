@@ -18,36 +18,29 @@ func main() {
 	}
 	defer client.Close()
 
-	src := client.Host().Directory(".", dagger.HostDirectoryOpts{
-		Exclude: []string{"Dockerfile", "go.mod", "go.sum", ".gitignore", ".git", ".github/"},
-	})
+	path := "usr/src/app"
 
-	entries, err := src.Entries(ctx)
-	// if err != nil {
-	// 	return nil, fmt.Errorf("failed to get cache files: %w", err)
-	// }
-
-	fmt.Print(entries)
 	// get `golang` image
-	myContainer := client.Container().From("python:3")
+	myContainer := client.Container().From("python:3").
+		WithDirectory(".", client.Host().Directory("."), dagger.ContainerWithDirectoryOpts{Include: []string{"requirements.txt", "app.py"}})
 
-	// mount cloned repository into `golang` image
-	myContainer = myContainer.WithDirectory(".", src).WithWorkdir(".")
+	runner, err := myContainer.
+		WithWorkdir(".").
+		WithExec([]string{"pip", "install", "--no-cache-dir", "-r", "requirements.txt"}).
+		Stderr(ctx)
 
-	path := "build/"
-	output := myContainer.Directory(path)
-
-	myContainer = myContainer.WithExec([]string{"pip", "install", "--no-cache-dir", "-r", "requirements.txt"})
-
-	myContainer = myContainer.WithExec([]string{"flask", "run", "--host", "0.0.0.0", path})
-
-	// get reference to build output directory in container
-	// output := myContainer.Directory(path)
-
-	// write contents of container build/ directory to the host
-	_, err = output.Export(ctx, path)
 	if err != nil {
 		panic(err)
 	}
 
+	flask, err := runner.
+		WithWorkdir(".").
+		WithExec([]string{"flask", "run", "--host", "0.0.0.0", path}).
+		Stderr(ctx)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(flask)
 }
